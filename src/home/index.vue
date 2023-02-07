@@ -1,17 +1,19 @@
 <template>
-  <router-link  v-for="(name,index) in exampleNameList" :key="index" :to="{name}">
-    <div>{{ name }}</div>
-  </router-link>
+  <div class="home">
+    <router-link v-for="(item,index) in exampleNameList" :key="index" :to="{name:item.name}">
+      <div>{{ item.title }}</div>
+    </router-link>
+  </div>
 </template>
 
-<script>
-export default {
-  name: "index.vue"
-}
-</script>
 <script setup>
 import {exampleNameList} from "@/example/index.js"
 </script>
 <style scoped>
-
+.home {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
 </style>
