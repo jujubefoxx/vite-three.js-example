@@ -1,5 +1,9 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import './style.css'
 import App from './App.vue'
+import router from '../router/index.js'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+//整个应用支持路由。
+app.use(router)
+app.mount('#app')
