@@ -11,15 +11,17 @@ const titleConfig={
     'vr-house':'VR看房'
 }
 Object.keys(exampleList).forEach(key => {
-    // 路由名称
-    const name = exampleList[key].name;
-    // 路由属性
-    const obj = {
-        name,
-        path: name,
-        component: exampleList[key]
+    if(exampleList[key].name){
+        // 路由名称
+        const name = exampleList[key].name;
+        // 路由属性
+        const obj = {
+            name,
+            path: name,
+            component: exampleList[key]
+        }
+        exampleRouter.push(obj)
+        exampleNameList.push({title:titleConfig[name]||name,name})
     }
-    exampleRouter.push(obj)
-    exampleNameList.push({title:titleConfig[name]||name,name})
 });
 export {exampleRouter,exampleNameList}
