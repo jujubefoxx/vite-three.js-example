@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 // 1. 定义路由组件.
-import home from "@/home/index.vue";
-import {exampleRouter} from "@/example/index.js"
+import home from "@/views/home/index.vue";
+import {exampleRouter} from "@/views/example/index.js"
 
 // 2. 定义一些路由
 const routes = [
