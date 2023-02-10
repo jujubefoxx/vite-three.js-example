@@ -12,8 +12,11 @@ import {createApp, onMounted, ref} from "vue"
 import * as THREE from 'three';
 import commonListener from "@/utils/common.js"
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+
 const container = ref(null);
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+
 let camera, scene, renderer, controls;
 /*具体步骤：
 1.初始化场景，相机，渲染器
@@ -24,7 +27,7 @@ let camera, scene, renderer, controls;
 // 1.初始化场景，相机，渲染器
 function init() {
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.set(0,300,400);
+  camera.position.set(0, 300, 400);
   scene = new THREE.Scene();
   // scene.background = new THREE.Color(0xf0f0f0);
   renderer = new THREE.WebGLRenderer();
@@ -32,45 +35,44 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   // 通用监听器
   commonListener(camera, renderer)
+  // 色调映射
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+
+  const environment = new RoomEnvironment();
+  // 生成一个亮度环境，传入renderer 并赋值给了pmremGenerator
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  scene.background = new THREE.Color(0xbbbbbb);
+  // scene.environment = pmremGenerator.fromScene(environment, 0.04).texture;
+  // environment.dispose();
 }
 
 init();
-function createUFO(){
+
+function createUFO() {
   const loader = new GLTFLoader();
 
-  loader.load( '/src/assets/files/ufo.gltf', function ( gltf ) {
+  loader.load('/src/assets/files/ufo.gltf', function (gltf) {
 
-    scene.add( gltf.scene );
-    console.log( gltf.scene)
+    scene.add(gltf.scene);
 
-  }, undefined, function ( error ) {
+  }, undefined, function (error) {
 
-    console.error( error );
+    console.error(error);
 
-  } );
-
-  const spotLight = new THREE.SpotLight( 0xffffff );
-  spotLight.position.set( 100, 1000, 100 );
-  // spotLight.map = new THREE.TextureLoader().load( url );
-
-  spotLight.castShadow = true;
-
-  spotLight.shadow.mapSize.width = 1024;
-  spotLight.shadow.mapSize.height = 1024;
-
-  // spotLight.shadow.camera.near = 500;
-  // spotLight.shadow.camera.far = 4000;
-  // spotLight.shadow.camera.fov = 30;
-
-  scene.add( spotLight );
+  });
 }
+
 createUFO();
+
 function animate() {
   controls.update();
   requestAnimationFrame(animate);
   render();
 
 }
+
 function render() {
   renderer.render(scene, camera);
 }
@@ -85,8 +87,8 @@ onMounted(() => {
 })
 </script>
 <style lang="scss" scoped>
-.container{
-  width:100vw;
+.container {
+  width: 100vw;
   height: 100vh;
   background: #f0f0f0;
 }

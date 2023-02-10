@@ -53,7 +53,6 @@ function init() {
 }
 
 init();
-let mixer;
 
 function creatLoader() {
   // 导入ktx2格式的loader
