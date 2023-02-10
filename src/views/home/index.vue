@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import {exampleNameList} from "@/example/index.js"
+import {exampleNameList} from "@/views/example/index.js"
 </script>
 <style scoped>
 .home {
