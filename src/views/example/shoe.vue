@@ -31,8 +31,9 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   // .outputEncoding : number
   // 定义渲染器的输出编码。默认为THREE.LinearEncoding
-  // renderer.outputEncoding = THREE.sRGBEncoding;
-
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xbfe3dd);
 
